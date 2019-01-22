@@ -12,9 +12,42 @@
 */
 
 Route::get('/', function () {
+    /*$query = 'SELECT * FROM users WHERE id=4';
+    $users = \DB::select($query);
+    $users = \DB::table('users')
+                ->where('id', 4)
+                ->select('id', 'name')
+                ->get();
+    $users = \App\User::where('id', 4)
+                        ->select('id', 'name')
+                        ->get();
+    dd($users);
+
+    $user = \App\User::find(31);
+    $user->name = 'Thiago 32';
+    $user->email = 'athiago884@gmail.com';
+    $user->password = bcrypt('123456');
+    $user->save();
+
+    $userData = [
+        'name' => 'Usuario novo',
+        'email' => 'email@gmail.com',
+        'password' => bcrypt('123456')
+    ];*/
+
+    $user = \App\User::whereIn('id', [31]);
+    $user->delete();   
+
     return view('welcome');
 });
 
 Route::get('hello/{name}', function ($name) {
     return view('hello', ['name' => $name]);
 });
+
+/*
+Route::get('/users', 'Test\UserController@index');
+Route::get('/users/{id}', 'Test\UserController@show');
+*/
+Route::resource('/users', 'Test\UserController');
+Route::resource('/products', 'Test\ProductController');
