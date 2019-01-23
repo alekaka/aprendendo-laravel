@@ -36,18 +36,44 @@ Route::get('/', function () {
     ];*/
 
     $user = \App\User::whereIn('id', [31]);
-    $user->delete();   
+    $user->delete();  
 
     return view('welcome');
 });
 
 Route::get('hello/{name}', function ($name) {
     return view('hello', ['name' => $name]);
+    //return redirect()->route('products_single');
 });
 
 /*
 Route::get('/users', 'Test\UserController@index');
 Route::get('/users/{id}', 'Test\UserController@show');
-*/
+
 Route::resource('/users', 'Test\UserController');
-Route::resource('/products', 'Test\ProductController');
+Route::resource('/products', 'Test\ProductController');*/
+
+Route::group(['namespace' => 'Test'],function(){
+    Route::get('/users/{id}', 'UserController@show');
+    Route::get('/prod', 'ProductController@index');
+});
+
+Route::prefix('products')->name('products_')->group(function(){
+    Route::get('/ok', function(){
+        return phpversion();
+    })->name('index');
+
+    Route::get('/1', function(){
+        return 'Produtos 1';
+    })->name('single');
+});
+
+Route::get('view', function () {
+    return view('view', ['name' => 'test']);
+});
+
+Route::get('show/{name?}/{sobrenome?}', function ($name = null, $sobrenome = null) {
+    if(is_null($name))
+        return 'Informe um nome para exibição';
+    return $name . ' ' .$sobrenome;
+});
