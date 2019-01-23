@@ -15,10 +15,16 @@ class UserController extends Controller
         return $users;
     }
 
-    public function show($id) 
+    public function show($id, Request $request) 
     {
-        $users = User::findOrFail($id);
+        $headers = $request->headers->get('user-agent');
+        dd($headers);
+        $nome = $request->query('name');
+        print $nome;
+        //$users = User::findOrFail($id);
 
-        return $users;
+        return response('Hello World', 200)
+                ->header('Content-Type', 'text/plain')
+            ;
     }
 }
