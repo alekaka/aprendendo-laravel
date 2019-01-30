@@ -7,18 +7,20 @@ use App\Restaurant;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MenuRequest;
+use Illuminate\Support\Facades\Auth;
 
 class MenuController extends Controller
 {
     public function index() 
     {
-        $menus = Menu::all();
+        $restaurants = Auth::user()->restaurants()->select('id')->get()->toArray();
+        $menus = Menu::whereIn('restaurant_id', $restaurants)->get();
         return view('admin.menus.index', compact('menus'));
     }
 
     public function newu() 
     {
-        $restaurants = Restaurant::all();
+        $restaurants = Auth::user()->restaurants;
         return view('admin.menus.store', compact('restaurants'));
     }
 
@@ -36,7 +38,7 @@ class MenuController extends Controller
 
     public function edit(Menu $menu) 
     {
-        $restaurants = Restaurant::all(['id', 'name']);
+        $restaurants = Auth::user()->restaurants;
 
         return view('admin.menus.edit', compact('menu', 'restaurants'));
     }
