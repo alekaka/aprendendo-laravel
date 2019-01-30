@@ -18,6 +18,8 @@ class CreateTableCardapio extends Migration
             $table->string('name');
             $table->float('price');
             $table->timestamps();
+            $table->integer('restaurant_id')->unsigned();
+            $table->foreign('restaurant_id')->references('id')->on('restaurants');
         });
     }
 
@@ -28,6 +30,6 @@ class CreateTableCardapio extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cardapio');
+        Schema::dropIfExists('menus');
     }
 }

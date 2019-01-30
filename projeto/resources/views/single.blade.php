@@ -27,6 +27,23 @@
                 @endforeach
             </ul>
         </div>
+        <div class="col-12">
+            <h2>Fotos</h2>
+            <hr>
+            @if($id->photos()->count())
+                @foreach ($id->photos as $photo)
+                    <div class="col-4"></div>
+                        <img src="{{asset('/images/' . $photo->photo)}}" alt="" class="img-thumbnail" width="150">
+                    </div>
+                @endforeach
+            @else
+                <div class="col-12">
+                        <span class="alert alert-warning">Sem Fotos para Este Restaurante...</span>
+                </div>
+                
+            @endif
+
+        </div>
     </div>
 </div>
 @endsection

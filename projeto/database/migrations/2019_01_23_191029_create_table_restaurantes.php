@@ -19,6 +19,8 @@ class CreateTableRestaurantes extends Migration
             $table->string('address');
             $table->text('description');
             $table->timestamps();
+            $table->integer('owner_id')->unsigned();
+            $table->foreign('owner_id')->references('id')->on('users');
         });
     }
 
@@ -29,6 +31,6 @@ class CreateTableRestaurantes extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('restaurantes');
+        Schema::dropIfExists('restaurants');
     }
 }
