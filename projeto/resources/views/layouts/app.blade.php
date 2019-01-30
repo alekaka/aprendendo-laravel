@@ -35,23 +35,23 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        <li>
-                            <a href="{{route('restaurant.index')}}" class="nav-link">Restaurantes</a>
-                        </li>
-                        <li>
-                            <a href="{{route('menu.index')}}"class="nav-link">Menus</a>
-                        </li>
-                        <li>
-                            <a href="{{route('user.index')}}" class="nav-link">Usuário</a>
-                        </li>
-                    </ul>
-
+                    @auth
+                        <ul class="nav navbar-nav">
+                            <li>
+                                <a href="{{route('restaurant.index')}}" class="nav-link">Restaurantes</a>
+                            </li>
+                            <li>
+                                <a href="{{route('menu.index')}}"class="nav-link">Menus</a>
+                            </li>
+                            <li>
+                                <a href="{{route('user.index')}}" class="nav-link">Usuário</a>
+                            </li>
+                        </ul>
+                    @endauth
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Cadastrar</a></li>
                         @else
                             <li class="dropdown">
@@ -64,7 +64,7 @@
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            Sair
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

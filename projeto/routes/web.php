@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/restaurante/{id}', 'HomeController@get')->name('home.single');
 
 Route::group(['middleware' => ['auth']], function(){
 
@@ -50,7 +49,7 @@ Route::group(['middleware' => ['auth']], function(){
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('rel', function() {
     $restaurant = \App\Restaurant::find(1);
